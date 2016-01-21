@@ -1,33 +1,58 @@
-How did viewing a diff between two versions of a file help you see the bug that
-was introduced?
+The purpose of Git is to manage a project, or a set of files, as they change over time. Git stores this information in a data structure called a repository. A git repository contains, among other things, the following: A set of commit objects.
 
-    It could help me save time by showing the differences directly instead of looking through the two files to find out the differences by myself. 
+A directory is a location for storing files on your computer. Directories are found in a hierarchical file system, such as DOS, OS/2, Unix, etc. When referring to a directory, a user commonly indicates the name of the directory. 
 
-How could having easy access to the entire history of a file make you a more
+
+1. How did viewing a diff between two versions of a file help you see the bug that
+was introduced? 
+
+Narrowing codes down to just lines that are different by viewing a diff between two versions of a file makes it a lot easier and faster to spot where the bug is and fix it in time. 
+
+2. How could having easy access to the entire history of a file make you a more
 efficient programmer in the long term?
 
-    It enables me to get access to previous versions of a file whenever I need to. 
+With easy access to the entire history of a file, programmers could have more time to focus on more important tasks, like the actual coding, without any confusion as to which file is the most recent one, after making changes in codes. In addition, if there are some errors or bugs in the codes, programmers could easily check older versions of a file to find where the errors and bugs are and fix them in time. It would also make it easier for programmers to compare different versions of a file to determine the best solution. 
 
-What do you think are the pros and cons of manually choosing when to create a
+3. What do you think are the pros and cons of manually choosing when to create a
 commit, like you do in Git, vs having versions automatically saved, like Google
 docs does?
 
-    Fill in your answer here
+Pros of Git: 
+1. You can pick when to save a change/changes by committing whenever it makes sense or there is a logical change.
+2. Every change makes sense and the file history doesn’t cluster with meaningless versions. 
+3. You can check older versions of a file easily. 
 
-Why do you think some version control systems, like Git, allow saving multiple
+Cons of Git:
+1. You might lose important changes if you don’t commit in time. 
+2. It takes time to commit to save changes comparing to  having versions automatically saved, like Google docs does. 
+
+4. Why do you think some version control systems, like Git, allow saving multiple
 files in one commit, while others, like Google Docs, treat each file separately?
 
-    Fill in your answer here
+Most version control systems, like Git, is developed for programming and coding. It makes perfect sense to save multiple files in one commit, since files are often connected in programming and sometimes a change could span multiple files in order for a program to run. While others like Google Docs, are more likely to be used for something like documents and spreadsheets, which usually don’t have a high connection among files as files in programming do. 
 
-How can you use the commands git log and git diff to view the history of files?
 
-    Fill in your answer here
+5. How can you use the commands git log and git diff to view the history of files?
 
-How might using version control make you more confident to make changes that
+By entering the command “git log”, the console outputs a list with commit ids and commit messages. You can use the information to find the commit ids for the versions you are looking for  and understand what changes were made between versions. The command “git diff id1 id2” with id1, the first argument, being the older/origin version, allows you to compare two versions to find what has changed (such as color red was removed and green was added).  
+
+
+6. How might using version control make you more confident to make changes that
 could break something?
 
-    Fill in your answer here
-
+Through version control, I could focus on making experimental changes to make a program better without worrying losing all the important codes or breaking something, since I could always go back to the previous version of a file. 
+   
 Now that you have your workspace set up, what do you want to try using Git for?
 
-    Fill in your answer here
+Stores codes for a program, like a website or a game.
+
+Commands:
+git log  |  Show the commits made in a directory/repository, starting with the most recent one.
+git checkout  |   Temporarily reset all files in a directory/repository to their state at the time of a specific commit. (Use git checkout to switch to a specific branch before merging it with the master branch.)
+git log --stat  |   Show addition information about the commits
+git diff id1 id2  |   Compare two commits, as id1 being the original version and id2 being the new version 
+git clone URL  |   Create a local copy/clone of the repository
+git config --global color.ui auto |   get colored diff output
+q | exit git log!
+cd ~ | go to the master directory
+cd name of a directory | switch to a specific directory 
