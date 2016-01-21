@@ -41,13 +41,23 @@ Now that you have your workspace set up, what do you want to try using Git for?
 
 Stores codes for a program, like a website or a game.
 
+
 Commands:
-git log  |  Show the commits made in a directory/repository, starting with the most recent one.
-git checkout  |   Temporarily reset all files in a directory/repository to their state at the time of a specific commit. (Use git checkout to switch to a specific branch before merging it with the master branch.)
+
+git log  |  Show the commits made in a directory/repository, starting with the most recent one. It doesn't take any arguments.
+
+git checkout  |   Temporarily reset all files in a directory/repository to their state at the time of a specific commit.It takes one argument - the commit ID to restore. (Use git checkout to switch to a specific branch before merging it with the master branch. The argument needed is the name of the branch.)
+
 git log --stat  |   Show addition information about the commits
-git diff id1 id2  |   Compare two commits, as id1 being the original version and id2 being the new version 
-git clone URL  |   Create a local copy/clone of the repository
+
+git diff id1 id2  |   Compare two commits, as id1 being the original version and id2 being the new version. So additions/deductions are lines present in the second argument but not the first.
+
+git clone URL  |   Make a copy of an entire Git repository, including the history, onto your own computer. It takes one argument - the url of the repository to copy.
+ 
 git config --global color.ui auto |   get colored diff output
+
 q | exit git log!
+
 cd ~ | go to the master directory
+
 cd name of a directory | switch to a specific directory 
