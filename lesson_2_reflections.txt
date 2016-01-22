@@ -1,18 +1,80 @@
 1. What happens when you initialize a repository? Why do you need to do it?
 
-2. How is the staging area different from the working directory and the repository?
-What value do you think it offers?
+* In order to do anything in Git, you need to have a Git repository. This is where Git stores the data for the snapshots you are saving.
 
-3. How can you use the staging area to make sure you have one commit per logical
-change?
+* There are two main ways to get a Git repository. One way is to simply initialize a new one from an existing directory, such as a new project or a project new to source control. The second way is to clone one from a public Git repository, as what you would do if you wanted a copy or wanted to work with someone on a project. 
 
-4. What are some situations when branches would be helpful in keeping your history
-organized? How would branches help?
+* To create a repository from an existing directory of files, you can simply run “git init (initializes a directory as a Git repository)” in that directory to start version controlling it with Git. Now you can see that there is a hidden .git subdirectory in your project. This is your Git repository where all the data of your project snapshots are stored.
+
+* If you run “ls -a”, you can see that there is a .git subdirectory in your project. This is your Git repository where all the data of your project snapshots are stored.
+
+* In a nutshell, you use git init to make an existing directory of content into a new Git repository. You can do this in any directory at any time, completely locally.
+
+* If you need to collaborate with someone on a project, or if you want to get a copy of a project so you can look at or use the code, you can clone it. You can simply run the “git clone [url]” command with the URL of the project you want to copy.
+
+* This will copy the entire history of that project so you can have it locally and it can give you a working directory of the main branch of that project so you can look at the code or start editing it. If you change into the new .git subdirectory, you can see all the project data.
+
+* By default, Git will create a directory that is the same name as the project in the URL you give it - basically whatever is after the last slash of the URL. If you want something different, you can just put it at the end of the command, after the URL.
+
+* In a nutshell, you use git clone to get a local copy of a Git repository so you can look at it or start modifying it.
+
+Behavior of git clone vs. cope 
+* If someone else gives you the location of their directory or repository, you can copy or clone it to your own computer.
+This is true for both copying a directory and cloning a repository.
+if you have a URL to a repository, you can copy it to your computer using git clone.
+For copying a directory, but it is possible to copy a directory from one computer to another using the command scp, which stands for "secure copy". The name was chosen because the scp command lets you securely copy a directory from one computer to another.  
+* The history of changes to the directory or repository is copied.
+This is true for cloning a repository, but not for copying a directory. The main reason to use git clone rather than copying the directory is because git clone will also copy the commit history of the repository. However, copying can be done on any directory, whereas git clone only works on a Git repository.  
+* If you make changes to the copied directory or cloned repository, the original will not change.
+This is true for both copying a directory and cloning a repository. In both cases, you're making a copy that you can alter without changing the original.  
+* The state of every file in the directory or repository is copied.
+This is true for both copying a directory and cloning a repository. In both cases, all the files are copied.
+
+
+2. How is the staging area different from the working directory and the repository? What value do you think it offers?
+
+* The staging area is the preparation area between the working directory and the repository. Staging is a step before the committing process in git. That is, a commit in git is performed in two steps: staging and actual committing. As long as a change-set is in the staging area, git allows you to edit it as you like (replace staged files with other versions of staged files, remove changes from staging, etc.) so that you can commit only files that are related to a particular logical change per commit. 
+
+
+3. How can you use the staging area to make sure you have one commit per logical change?
+
+* The staging area lets you store one or more modified files from your working directory that you could commit to your repository later. Files have to be added to the staging area first before committing. The staging area allows you to create a collection of files to commit together as one commit action. It also helps divide changes in the working directory into several commits, each of which consists of a group of changes in the relevant files that represent only one logical change.
+
+* By using the command "git diff --staged" to compare the staging area to the most recent commit and “git diff” to compare the working directory to the staging area, I can commit files when I’m sure the changes in them are related to only one logical change.
+
+
+4. What are some situations when branches would be helpful in keeping your history organized? How would branches help?
+
+* Branches would be helpful when you want to work on somethings new (like a new version of a website in a different language) or perform experimental changes (change the color of coins in a game) to a program without breaking the original master branch. Branches allow you to separate your changes from the master branch, which contains the major codes and information for a program. 
+
 
 5. How do the diagrams help you visualize the branch structure?
+
+* The diagrams enable me to see the structures for the master branch and any other branches I created in order to get a better understanding of what the master branch and other branches contain. 
+
 
 6. What is the result of merging two branches together? Why do we represent it in
 the diagram the way we do?
 
-7. What are the pros and cons of Git’s automatic merging vs. always doing merges
-manually?
+* When two branches are merged, commits from both branches now exist in only one branch. The result is creating a new commit that has two commits as its parents, because the new commit contains information from the last commits in both branches. A new commit is created in the branch that was checked out at the time of the commit. The diagram helps to show that changes occurred independently along 2 lines, the branches, and then were combined together so that all changes exist in 1 set of files.
+
+* A note about “git merge”
+“git merge” will also include the currently checked-out branch in the merged version. So if you have branch1 checked out, and you run “git merge branch2 branch3”, the merged version will combine branch1 as well as branch2 and branch3. That’s because the branch1 label will update after you make the merge commit, so it’s unlikely that you didn’t want the changes from branch1 included in the merge. For this reason, you should always checkout one of the two branches you’re planning on merging before doing the merge. Which one you should check out depends on which branch label you want to point to the new commit. Since the checked-out branch is always included in the merge, you may have guessed that when you are merging two branches, you don't need to specify both of them as arguments to “git merge” on the command line. If you want to merge branch2 into branch1, you can simply “git checkout” branch1 and then type “git merge branch2”. The only reason to type “git merge branch1 branch2” is it helps you keep better mental track of which branches you are merging.
+Also, since the two branches are merged, the order in which they are typed into the command line does not matter. The key is to remember that “git merge” always merges all the specified branches into the currently checked out branch, creating a new commit for that branch.
+
+Master is the default branch in git. 
+“git branch” - show the current branch I’m in
+“git branch easy-mode” -create a new branch named “easy-mode”
+“git checkout easy-mode” -to see whether I’m in the easy-mode branch or not
+
+
+7. What are the pros and cons of Git’s automatic merging vs. always doing merges manually?
+
+* It is great to have Git automatically handle simple merging for me. That can save me a lot of time while merging files. And it will flag a conflict any time that it does not see an easy way to merge files, so that I can fix it. Manually merging would let me pick and choose every change to include, reject or modify. So manually merging would offer the most control, but often would take more time.
+
+
+Git Commands
+
+“git status” - show the current status of the git repository, including if there are any uncommitted changes and whether or not any of our changes have been put in the staging area.
+“git add” -  it does something more than just add files to be tracked - it also adds changes to the staging area.
+“git commit” - without any arguments (or the -a flag) it will default to committing everything that's currently in the staging area.
