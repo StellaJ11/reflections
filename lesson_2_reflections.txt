@@ -75,8 +75,36 @@ Master is the default branch in git.
 * It is great to have Git automatically handle simple merging for me. That can save me a lot of time while merging files. And it will flag a conflict any time that it does not see an easy way to merge files, so that I can fix it. Manually merging would let me pick and choose every change to include, reject or modify. So manually merging would offer the most control, but often would take more time.
 
 
-Git Commands
 
-“git status” - show the current status of the git repository, including if there are any uncommitted changes and whether or not any of our changes have been put in the staging area.
-“git add” -  it does something more than just add files to be tracked - it also adds changes to the staging area.
-“git commit” - without any arguments (or the -a flag) it will default to committing everything that's currently in the staging area.
+Commands:
+git status |  Show which files are in the staging area, and which files from the working directory are not part of the repository
+
+git add  |    Add a file to the staging area. It does something more than just add files to be tracked - it also adds changes to the staging area.
+
+git commit  |    Commit files in the staging area to the repository. Without any arguments (or the -a flag) it will default to committing everything that's currently in the staging area.
+
+git push origin master | Push your changes to the master branch in the origin repository. Running git push won't change what shows up in your local git log - it will only change what is present on the remote. 
+
+Where was your commit?
+Before you ran git push, your change should have only existed locally via git log. Commits will not automatically be shared to remotes - you have to manually push your branch if you want to share changes.
+After you ran git push, your change should have existed locally and on your fork. It should not have existed on the original repository, which is the repository you forked. The reason you forked in the first place is because you don't have permission to change the original repository!
+
+
+git diff  |    Git diff without arguments is to compare the working directory to the staging area
+
+git diff --staged  |    Compare the staging area to the most recent commit
+
+git reset --hard  |    Undo all changes! There is no rollback for this, so be careful!
+
+git checkout master  |    Restore the "Head" to the latest check-in 
+
+git log --graph --oneline <branch1> <branch2>  |    Show a visual representation of the commit history within different branches
+
+git checkout -b new_branch_name  |    Creates a new branch and do a checkout on this branch in one call instead of git branch new_branch_name and git checkout new_branch_name
+
+git merge branch1 branch2  |    Merge two branches, branch2 get merged into branch1
+
+git branch -d name  |    Remove the branch with the specified name. Only delete the label, not the commits in the branch. Branches are labels that refer to commits. 
+
+git show commit_Id  |  Compare a commit to its parent 
+
