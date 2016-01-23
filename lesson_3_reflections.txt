@@ -1,29 +1,84 @@
 1. When would you want to use a remote repository rather than keeping all your work
 local?
 
-    
+＊ I would want to use a remote repository rather than keeping all my work local when I need to work on files from more than one computer or when I want to share my work and collaborate with others. 
 
 2. Why might you want to always pull changes manually rather than having Git
 automatically stay up-to-date with your remote repository?
 
-    
+* Because by pulling changes manually I can take control of what changes I would like to include in my files. If I use git to automatically safe up-to-date files for me, I would probably get different versions of files with changes that I don’t need, like changes from branches that others are working on. 
 
 3. Describe the differences between forks, clones, and branches.  When would you
 use one instead of another?
 
-   
+* A fork is a copy of a repository. Forking a repository allows you to freely experiment with changes without affecting the original project. Most commonly, forks are used to either propose changes to someone else's project or to use someone else's project as a starting point for your own idea.
 
+* Propose changes to someone else's project
+
+A great example of using forks to propose changes is for bug fixes. Rather than logging an issue for a bug you've found, you can:
+
+1. Fork the repository.
+2. Make the fix.
+3. Submit a pull request to the project owner.
+If the project owner likes your work, they might pull your fix into the original repository!
+
+* Use someone else's project as a starting point for your own idea.
+
+At the heart of open source is the idea that by sharing code, we can make better, more reliable software.
+
+In fact, when you create a repository on GitHub, you have a choice of automatically including a license file, which determines how you want your project to be shared with others.
+
+* Cloning a git repository means that you can create a local copy of the code provided by a developer in your computer. You can simply do it with a command line: git clone URL.
+
+Clones are useful when you want to work on a project separately on a computer without breaking the original project. 
+
+* When you want to add a new feature or work on some experimental changes in a program, you could create a branch, which is separate from the original default master branch in Github. By making your changes in code in a separate branch, you can work on your changes freely without breaking the original program. When you’re done with your changes, you can simply merge your branch with the master branch. 
+ 
+   
 4. What is the benefit of having a copy of the last known state of the remote
 stored locally?
 
-    
+* The benefit of having a copy of the last know state of the remote stored locally is that I can work offline to fix bugs or make changes to a program with the most up-to-date version of a program, then add the changes to the staging area and push them to Github.  
+
 
 5. How would you collaborate without using Git or GitHub?  What would be easier,
 and what would be harder?
 
-    
+* Without using Git or Github, I have to collaborate with others via emails/network-share, like dropbox, etc. In addition, it would be hard to get the history of all the files and communicate any changes with others. Therefore, it would be much more easier to collaborate with Git or GitHub. 
 
 6. When would you want to make changes in a separate branch rather than directly in
 master?  What benefits does each approach have?
 
-    
+* When I want to add a new feature or work on some experimental changes, I prefer making those changes in a separate branch rather than directly in master. Because in this way I could keep my changes separate from the original code, without causing any conflicts due to the changes or even breaking the original code. I can just simply merge my branch into the master branch when I finish making my changes. However, if I make changes directly in master, I can always have up-to-date information without merging. 
+
+
+“git pull origin master” = “git fetch origin” + “git merge master origin/master” 
+
+origin is the name of the original repository on Github
+origin/master is when the master branch in the original repository on Github is pulled to a local machine. 
+
+When you use “git clone” to clone a remote repository in your local machine, git will create a local master branch and a origin/master branch for you. You’ll only update the local copy of the remote branch, which is origin/master if you use git fetch, not the local master branch. 
+
+It turns out that you can update just the local copy of the remote branch, leaving your actual local version alone by running the command “git fetch”. In cases like this, where there are potentially conflicting changes, using “git fetch” to update the local copy of the remote branch can be nice, so you can use “git log” and “git diff” to see what changes were introduced both on the local and remote repositories. 
+
+First, the remote branch gets fetched, updating the the local copy of the remote branch, then that branch gets merged into the local one. Fetching updates origin/master with the contents of Github’s master branch, and then origin/master is merged into master. So git pull is the same as git fetch followed by git merge. 
+
+Fast-forward merges:
+
+This kind of merges occurs when you merge two commits, where one is an ancestor of the other. That is, where one commit is reachable by the other. Since one commit already has all the history of the other commit, there is no need to create a new commit. Instead, all we would do is to update the label to point to the tip of the branch. We’re taking a label from the history of a branch somewhere in its ancestry, and moving that label forward to the tip of the branch. 
+
+Commands:
+
+git remote  |    See which remote servers you have configured. It lists the short-names of each remote handle you’ve specified. If you’ve cloned your repository, you should at least see origin – that is the default name Git gives to the server you cloned from.
+
+git remote add url |     Add a new remote location for the repository. Origin is the default name to use when you create only one remote location. Url should be the url to the github repository.
+
+git remote -v  |    Output the remote locations with verbose information (fetch and push urls)
+
+git push origin master  |    Push the master branch to the remote location origin.
+
+git pull origin master  |    Get the master branch from the remote location origin.
+
+git pull origin master  |    = Git fetch origin + git merge master origin/master
+
+git fetch origin  |    Get the changes from the remote location into the (hidden?) origin/master branch
