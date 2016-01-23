@@ -1,104 +1,0 @@
-Version Control
-
-The purpose of Git is to manage a project, or a set of files, as they change over time. Git stores this information in a data structure called a repository. A git repository contains, among other things, the following: A set of commit objects.
-
-A directory is a location for storing files on your computer. Directories are found in a hierarchical file system, such as DOS, OS/2, Unix, etc. When referring to a directory, a user commonly indicates the name of the directory. 
-
-Git command review
-Compare two commits, printing each line that is present in one commit but not the other.
-git diff will do this. It takes two arguments - the two commit ids to compare.   
-Make a copy of an entire Git repository, including the history, onto your own computer.
-git clone will do this. It takes one argument - the url of the repository to copy.   
-Temporarily reset all files in a directory to their state at the time of a specific commit.
-git checkout will do this. It takes one argument - the commit ID to restore.   
-Show the commits made in this repository, starting with the most recent.
-git log will do this. It doesn't take any arguments.
-
-
-Behavior of git clone
-If someone else gives you the location of their directory or repository, you can copy or clone it to your own computer.
-This is true for both copying a directory and cloning a repository.
-As you saw in the previous lesson, if you have a URL to a repository, you can copy it to your computer using git clone.
-For copying a directory, you weren't expected to know this, but it is possible to copy a directory from one computer to another using the command scp, which stands for "secure copy". The name was chosen because the scp command lets you securely copy a directory from one computer to another.   
-The history of changes to the directory or repository is copied.
-This is true for cloning a repository, but not for copying a directory. The main reason to use git clone rather than copying the directory is because git clone will also copy the commit history of the repository. However, copying can be done on any directory, whereas git clone only works on a Git repository.   
-If you make changes to the copied directory or cloned repository, the original will not change.
-This is true for both copying a directory and cloning a repository. In both cases, you're making a copy that you can alter without changing the original.   
-The state of every file in the directory or repository is copied.
-This is true for both copying a directory and cloning a repository. In both cases, all the files are copied.
-
-
-Behavior of git diff
-git diff considers the first argument as the "original", and the second argument as the "new" version, so additions are lines present in the second argument but not the first.
-
-Behavior of git checkout
-Checking out an earlier commit will change the state of at least one file.
-This is sometimes true. Git doesn't allow you to save a new commit if no files have been updated, so you might think this is always true. However, it's possible to do the following:
-* Save a commit (call this commit 1).
-* Update some files and save another commit (call this commit 2).
-* Change all the files back to their state during commit 1, then save again (call this commit 3).
-This sometimes happens if commit 2 contained a bug, and it's important to fix the bug quickly. The easiest thing to do might be to remove all the changes introduced by commit 2 to fix the bug, then figure out how to safely reintroduce the changes later.
-At this point, commit 3 is the latest commit, so if you checkout commit 1, none of the files will be changed.   
-Checking out an earlier commit will change the state of more than one file.
-Checking out an earlier commit will change the state of every file in the repository.
-Both of these are sometimes true. Since each commit tracks the state of all files in the repository, it is possible that checking out an earlier commit will change the state of multiple files, or even all the files in the repository. However, it is possible to save a new commit after changing only one file, so it is possible only one file will change.   
-After checking out a commit, the state of all the files in the repository will be from the same point in time.
-This is always true. A commit saves a snapshot of all files in the repository at the time the commit was made, so checking out an earlier commit will result in all the files being reverted to their state at the time the commit was made. That is, the files will be in a consistent state.
-
-When you initialize the repository, Git doesn’t create any commits for you. You’ll have to create the first commit yourself.
-
-git diff - compare working directory to the staging area
-git diff —-staged compare the staging area to the most recent commit 
-
-Master is the default branch in git. 
-git branch - show the current branch I’m in
-git branch easy-mode -create a new easy-mode branch 
-git checkout easy-mode -to see whether I’m in the easy-mode branch or not
-When to create a new branch? Every time I want to do something different, like creating a new feature or adding a new version with a different language, I would create a new branch and keep the master(main) branch intact. 
-
-A note about git merge
-git merge will also include the currently checked-out branch in the merged version. So if you have branch1 checked out, and you run git merge branch2 branch3, the merged version will combine branch1 as well as branch2 and branch3. That’s because the branch1 label will update after you make the merge commit, so it’s unlikely that you didn’t want the changes from branch1 included in the merge. For this reason, you should always checkout one of the two branches you’re planning on merging before doing the merge. Which one you should check out depends on which branch label you want to point to the new commit.
-Since the checked-out branch is always included in the merge, you may have guessed that when you are merging two branches, you don't need to specify both of them as arguments to git merge on the command line. If you want to merge branch2 into branch1, you can simply git checkout branch1 and then type git merge branch2. The only reason to type git merge branch1 branch2 is if it helps you keep better mental track of which branches you are merging.
-Also, since the two branches are merged, the order in which they are typed into the command line does not matter. The key is to remember that git merge always merges all the specified branches into the currently checked out branch, creating a new commit for that branch.
-
-Comparing a commit to its parent
-The command to compare a commit to its parent is git show commit_id
-
-Command to delete a branch (only delete the table, not the commits in the branch)
-git branch -d coins
-Branches are labels that refer to commits. 
-
-Command to show a diagram of all the branch 
-git log —-graph —-oneline 
-
-
-B’ is called B prime. 
-
-Command to view and create remote
-git remote add name url 
-git remote -v to see more info and check whether the url is entered correctly
-
-Running git push won't change what shows up in your local git log - it will only change what is present on the remote.
-
-Where was your commit?
-Before you ran git push, your change should have only existed locally via git log. Commits will not automatically be shared to remotes - you have to manually push your branch if you want to share changes.
-After you ran git push, your change should have existed locally and on your fork. It should not have existed on Larry's repository, which is the repository you forked. The reason you forked in the first place is because you don't have permission to change Larry's repository!
-
-Push and pull content to and from Github
-Fork —Github clone 
-you can make a copy of a repository on GitHub by forking it
-
-git pull origin master = git fetch origin
-                                    git merge master origin/master 
-
-origin is the name of the original repository on Github
-origin/master is when the master branch in the original repository on Github is pulled to a local machine. 
-
-When you use git clone to clone a remote repository in your local machine, git will create a local master branch and a origin/master branch for you. You’ll only update the local copy of the remote branch, which is origin/master if you use git fetch, not the local master branch. 
-
-It turns out that you can update just the local copy of the remote branch, leaving your actual local version alone by running the command git fetch. In cases like this this, where there are potentially conflicting changes, using git fetch to update the local copy of the remote branch can be nice, so you can use git log and git diff to see what changes were introduced both on the local and remote repositories. 
-
-First, the remote branch gets fetched, updating the the local copy of the remote branch, then that branch gets merged into the local one. Fetching updates origin/master with the contents of Github’s master branch, and then origin/master is merged into master. So git pull is the same as git fetch followed by git merge. 
-
-Fast-forward merges
-This kind of merges occurs when you merge two commits, where one is an ancestor of the other. That is, where one committee is reachable by the other. Since one commit already has all the history of the other commit, there is no need to create a new commit. Instead, all we would do is to update the label to point the tip of the branch. We’re taking a label from the history of a branch somewhere in its ancestry, and moving that label forward to the tip of the branch. 
