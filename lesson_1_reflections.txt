@@ -42,7 +42,7 @@ Now that you have your workspace set up, what do you want to try using Git for?
 * Stores codes for a program, like a website or a game.
 
 
-Git Commands:
+Commands:
 
 * git log  |  Show the commits made in a directory/repository, starting with the most recent one. It doesn't take any arguments.
 
